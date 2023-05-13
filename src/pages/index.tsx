@@ -11,6 +11,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import Config from "../components/config";
 
 
 const IndexPage = () => {
@@ -42,15 +43,15 @@ const IndexPage = () => {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleTabChange} aria-label="lab API tabs example">
               <Tab label="Bar Chart" value="1" />
-              <Tab label="Item Two" value="2" />
-              <Tab label="Item Three" value="3" />
+              <Tab label="Another Chart" value="2" />
+              <Tab label="Config" value="3" />
             </TabList>
           </Box>
           <TabPanel value="1">
             <BarChartComponent data={vendorData} />
           </TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
+          <TabPanel value="2">Another Chart</TabPanel>
+          <TabPanel value="3"><Config /></TabPanel>
         </TabContext>
 
 

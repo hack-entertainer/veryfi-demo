@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.13.0",
+    "formik": "^2.2.9",
     "gatsby": "^5.9.1",
     "gatsby-plugin-image": "^3.9.0",
     "gatsby-plugin-manifest": "^5.9.0",
@@ -17,7 +18,8 @@
     "gatsby-transformer-sharp": "^5.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "recharts": "^2.6.2"
+    "recharts": "^2.6.2",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "prettier": "^2.8.8"
