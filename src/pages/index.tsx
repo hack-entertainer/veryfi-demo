@@ -4,14 +4,13 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import { receipts } from '../response.js';
+import BarChartComponent from "../components/charts/barchart";
 
 
 
 const IndexPage = () => {
 
   const vendorData = {};
-
-  console.log(typeof receipts);
   receipts.documents.forEach(receipt => {
     if (receipt.vendor.name in vendorData) {
       vendorData[receipt.vendor.name].total += receipt.total;
@@ -25,14 +24,13 @@ const IndexPage = () => {
   return (
     <Layout>
       <div>
-        {/* <h1>
+        <h1>
           Welcome to <b>VeryFi Demo!</b>
-        </h1> */}
+        </h1>
+
+        <BarChartComponent data={vendorData} />
 
       </div>
-
-
-
     </Layout>
   )
 }
