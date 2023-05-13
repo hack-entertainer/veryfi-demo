@@ -4,6 +4,9 @@ import * as React from 'react';
 
 import * as Yup from "yup";
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setConfig } from '../state/slices/configSlice';
 
 const validationSchema = Yup.object().shape({
   clientId: Yup.string().required('Client ID is required'),
@@ -13,6 +16,11 @@ const validationSchema = Yup.object().shape({
 
 
 const Config = () => {
+  const dispatch = useDispatch();
+
+  const config = useSelector((state: any) => state.config);
+  console.log('config', config);
+
   const formik = useFormik({
     initialValues: {
       clientId: '',
@@ -21,6 +29,7 @@ const Config = () => {
     },
     onSubmit: values => {
       console.log(JSON.stringify(values, null, 2));
+      dispatch(setConfig(values));
     },
   });
 
@@ -126,3 +135,4 @@ const Config = () => {
 }
 
 export default Config;
+
