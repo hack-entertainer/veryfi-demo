@@ -6,8 +6,7 @@ import Seo from "../components/seo"
 import { receipts } from '../response.js';
 import BarChartComponent from "../components/charts/barchart";
 
-
-
+import Box from '@mui/material/Box';
 const IndexPage = () => {
 
   const vendorData = {};
@@ -27,9 +26,9 @@ const IndexPage = () => {
         <h1>
           Welcome to <b>VeryFi Demo!</b>
         </h1>
-
-        <BarChartComponent data={vendorData} />
-
+        <Box>
+          <BarChartComponent data={vendorData} />
+        </Box>
       </div>
     </Layout>
   )
