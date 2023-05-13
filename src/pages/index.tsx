@@ -7,8 +7,13 @@ import { receipts } from '../response.js';
 import BarChartComponent from "../components/charts/barchart";
 
 import Box from '@mui/material/Box';
-const IndexPage = () => {
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
+
+const IndexPage = () => {
   const vendorData = {};
   receipts.documents.forEach(receipt => {
     if (receipt.vendor.name in vendorData) {
@@ -20,15 +25,36 @@ const IndexPage = () => {
 
   console.log(vendorData);
 
+  //for tabs
+  const [tab, setTab] = React.useState('1');
+  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+    setTab(newValue);
+  };
+
   return (
     <Layout>
       <div>
         <h1>
           Welcome to <b>VeryFi Demo!</b>
         </h1>
-        <Box>
-          <BarChartComponent data={vendorData} />
-        </Box>
+
+        <TabContext value={tab}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+              <Tab label="Bar Chart" value="1" />
+              <Tab label="Item Two" value="2" />
+              <Tab label="Item Three" value="3" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <BarChartComponent data={vendorData} />
+          </TabPanel>
+          <TabPanel value="2">Item Two</TabPanel>
+          <TabPanel value="3">Item Three</TabPanel>
+        </TabContext>
+
+
+
       </div>
     </Layout>
   )
