@@ -3,7 +3,6 @@ import * as React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-import { receipts } from '../response.js';
 import BarChartComponent from "../components/charts/barchart";
 
 import Box from '@mui/material/Box';
@@ -13,9 +12,37 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Config from "../components/config";
 
+import { receipts } from '../response.js';
+
+import axios from 'axios';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 const IndexPage = () => {
   const vendorData = {};
+
+
+
+  // Create a client
+  const queryClient = new QueryClient();
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: () =>
+      fetch('https://api.github.com/repos/tannerlinsley/react-query').then(
+        (res) => res.json(),
+      ),
+    onSuccess: (data) => console.log('success now!', data)
+  })
+
+  console.log(axios.get('http://localhost:8080/https://google.com'));
+
+
   receipts.documents.forEach(receipt => {
     if (receipt.vendor.name in vendorData) {
       vendorData[receipt.vendor.name].total += receipt.total;
@@ -24,34 +51,41 @@ const IndexPage = () => {
     }
   });
 
+  console.log(vendorData);
+
   //for tabs
-  const [tab, setTab] = React.useState('3');
+  const [tab, setTab] = React.useState('1');
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
   };
 
-  return <>
+  return (
     <Layout>
-      <h1>
-        Welcome to <b>VeryFi Demo!</b>
-      </h1>
+      <div>
+        <h1>
+          Welcome to <b>VeryFi Demo!</b>
+        </h1>
 
-      <TabContext value={tab}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-            <Tab label="Bar Chart" value="1" />
-            <Tab label="Another Chart" value="2" />
-            <Tab label="Config" value="3" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <BarChartComponent data={vendorData} />
-        </TabPanel>
-        <TabPanel value="2">Another Chart</TabPanel>
-        <TabPanel value="3"><Config /></TabPanel>
-      </TabContext>
+        <TabContext value={tab}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+              <Tab label="Bar Chart" value="1" />
+              <Tab label="Another Chart" value="2" />
+              <Tab label="Config" value="3" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <BarChartComponent data={vendorData} />
+          </TabPanel>
+          <TabPanel value="2">Another Chart</TabPanel>
+          <TabPanel value="3"><Config /></TabPanel>
+        </TabContext>
+
+
+
+      </div>
     </Layout>
-  </>
+  )
 }
 
 /**
@@ -62,3 +96,4 @@ const IndexPage = () => {
 export const Head = () => <Seo title="Home" description={undefined} children={undefined} />
 
 export default IndexPage
+

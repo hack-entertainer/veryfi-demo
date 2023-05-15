@@ -5,10 +5,16 @@ import { store } from './store'
 
 import { CssBaseline } from "@mui/material";
 
+//react query
+import { QueryClient, QueryClientProvider } from 'react-query'
+const queryClient = new QueryClient()
+
 
 export default ({ element }) => {
   return <>
     <CssBaseline />
-    <Provider store={store}>{element}</Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>{element}</Provider>
+    </QueryClientProvider>
   </>
 }
