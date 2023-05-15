@@ -100,38 +100,6 @@ const Config = () => {
       </Formik>
     </Box>
   </>
-  // return (
-  //   <form onSubmit={formik.handleSubmit}>
-  //     <label htmlFor="clientId">Client ID</label>
-  //     <input
-  //       id="clientId"
-  //       name="clientId"
-  //       type="text"
-  //       onChange={formik.handleChange}
-  //       value={formik.values.clientId}
-  //     />
-
-  //     <label htmlFor="userName">User Name</label>
-  //     <input
-  //       id="userName"
-  //       name="userName"
-  //       type="text"
-  //       onChange={formik.handleChange}
-  //       value={formik.values.userName}
-  //     />
-
-  //     <label htmlFor="apiKey">Api Key</label>
-  //     <input
-  //       id="apiKey"
-  //       name="apiKey"
-  //       type="text"
-  //       onChange={formik.handleChange}
-  //       value={formik.values.apiKey}
-  //     />
-
-  //     <button type="submit">Submit</button>
-  //   </form>
-  // );
 }
 
 export default Config;

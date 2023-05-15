@@ -24,41 +24,34 @@ const IndexPage = () => {
     }
   });
 
-  console.log(vendorData);
-
   //for tabs
-  const [tab, setTab] = React.useState('1');
+  const [tab, setTab] = React.useState('3');
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
   };
 
-  return (
+  return <>
     <Layout>
-      <div>
-        <h1>
-          Welcome to <b>VeryFi Demo!</b>
-        </h1>
+      <h1>
+        Welcome to <b>VeryFi Demo!</b>
+      </h1>
 
-        <TabContext value={tab}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-              <Tab label="Bar Chart" value="1" />
-              <Tab label="Another Chart" value="2" />
-              <Tab label="Config" value="3" />
-            </TabList>
-          </Box>
-          <TabPanel value="1">
-            <BarChartComponent data={vendorData} />
-          </TabPanel>
-          <TabPanel value="2">Another Chart</TabPanel>
-          <TabPanel value="3"><Config /></TabPanel>
-        </TabContext>
-
-
-
-      </div>
+      <TabContext value={tab}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+            <Tab label="Bar Chart" value="1" />
+            <Tab label="Another Chart" value="2" />
+            <Tab label="Config" value="3" />
+          </TabList>
+        </Box>
+        <TabPanel value="1">
+          <BarChartComponent data={vendorData} />
+        </TabPanel>
+        <TabPanel value="2">Another Chart</TabPanel>
+        <TabPanel value="3"><Config /></TabPanel>
+      </TabContext>
     </Layout>
-  )
+  </>
 }
 
 /**
