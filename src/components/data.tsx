@@ -15,23 +15,11 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const Config = () => {
+const Data = () => {
   const dispatch = useDispatch();
 
   const config = useSelector((state: any) => state.config);
   console.log('config', config);
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     clientId: config.clientId,
-  //     userName: config.userName,
-  //     apiKey: config.apiKey
-  //   },
-  //   onSubmit: values => {
-  //     console.log(JSON.stringify(values, null, 2));
-  //     dispatch(setConfig(values));
-  //   },
-  // });
 
   return <Box component="div">
     <Formik initialValues={{
@@ -40,66 +28,63 @@ const Config = () => {
       apiKey: config.apiKey
     }}
       validationSchema={validationSchema}
-      onSubmit={(values) => { console.log(values); dispatch(setConfig(values)) }}>
+      onSubmit={(values) => { dispatch(setConfig(values)) }}>
 
-      {({ values, touched, errors, handleChange, handleBlur, isValid }) => (<>
+      {({ values, touched, errors, handleChange, handleBlur, isValid }) => <Form>
+        <TextField
+          margin="normal"
+          fullWidth
+          id="clientId"
+          name="clientId"
+          label="Client ID"
+          type="text"
+          value={values.clientId}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.clientId && Boolean(errors.clientId)}
+          helperText={touched.clientId && errors.clientId && `${errors.clientId}`}
+          autoComplete="current-text" />
 
-        <Form>
-          <TextField
-            margin="normal"
-            fullWidth
-            id="clientId"
-            name="clientId"
-            label="Client ID"
-            type="text"
-            value={values.clientId}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.clientId && Boolean(errors.clientId)}
-            helperText={touched.clientId && errors.clientId && `${errors.clientId}`}
-            autoComplete="current-text" />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="userName"
+          name="userName"
+          label="User Name"
+          type="text"
+          value={values.userName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.userName && Boolean(errors.userName)}
+          helperText={touched.userName && `${errors.userName}`}
+          autoComplete="current-text" />
 
-          <TextField
-            margin="normal"
-            fullWidth
-            id="userName"
-            name="userName"
-            label="User Name"
-            type="text"
-            value={values.userName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.userName && Boolean(errors.userName)}
-            helperText={touched.userName && `${errors.userName}`}
-            autoComplete="current-text" />
+        <TextField
+          margin="normal"
+          fullWidth
+          id="apiKey"
+          name="apiKey"
+          label="API Key"
+          type="text"
+          value={values.apiKey}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.apiKey && Boolean(errors.apiKey)}
+          helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
+          autoComplete="current-text" />
 
-          <TextField
-            margin="normal"
-            fullWidth
-            id="apiKey"
-            name="apiKey"
-            label="API Key"
-            type="text"
-            value={values.apiKey}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.apiKey && Boolean(errors.apiKey)}
-            helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
-            autoComplete="current-text" />
-
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            disabled={!isValid}
-          >
-            fetch
-          </Button>
-        </Form>
-      </>)}
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          disabled={!isValid}>
+          fetch
+        </Button>
+      </Form>
+      }
     </Formik>
   </Box>
 }
 
-export default Config;
+export default Data;
 
