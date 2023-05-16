@@ -47,7 +47,6 @@ const Config = () => {
         <Form>
           <TextField
             margin="normal"
-            // required
             fullWidth
             id="clientId"
             name="clientId"
@@ -57,14 +56,13 @@ const Config = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.clientId && Boolean(errors.clientId)}
-            helperText={touched.clientId && errors.clientId}
+            helperText={touched.clientId && errors.clientId && `${errors.clientId}`}
             autoComplete="current-text" />
 
           <TextField
             margin="normal"
-            // required
             fullWidth
-            id="cliuserNameentId"
+            id="userName"
             name="userName"
             label="User Name"
             type="text"
@@ -72,12 +70,11 @@ const Config = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.userName && Boolean(errors.userName)}
-            helperText={touched.userName && errors.userName}
+            helperText={touched.userName && `${errors.userName}`}
             autoComplete="current-text" />
 
           <TextField
             margin="normal"
-            // required
             fullWidth
             id="apiKey"
             name="apiKey"
@@ -87,7 +84,7 @@ const Config = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             error={touched.apiKey && Boolean(errors.apiKey)}
-            helperText={touched.apiKey && errors.apiKey}
+            helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
             autoComplete="current-text" />
 
           <Button
@@ -96,7 +93,7 @@ const Config = () => {
             variant="contained"
             disabled={!isValid}
           >
-            save
+            fetch
           </Button>
         </Form>
       </>)}
