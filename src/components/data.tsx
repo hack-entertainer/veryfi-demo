@@ -1,12 +1,17 @@
-import { Box, Button, TextField } from '@mui/material';
-import { Form, Formik, useFormik } from 'formik';
 import * as React from 'react';
+
+import { Box, Button, TextField } from '@mui/material';
+import { Form, Formik } from 'formik';
+
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 
 import * as Yup from "yup";
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setConfig } from '../state/slices/configSlice';
+
 
 const validationSchema = Yup.object().shape({
   clientId: Yup.string().required('Client ID is required'),
@@ -16,10 +21,8 @@ const validationSchema = Yup.object().shape({
 
 
 const Data = () => {
-  const dispatch = useDispatch();
-
   const config = useSelector((state: any) => state.config);
-  console.log('config', config);
+  const dispatch = useDispatch();
 
   return <Box component="div">
     <Formik initialValues={{
@@ -72,6 +75,8 @@ const Data = () => {
           error={touched.apiKey && Boolean(errors.apiKey)}
           helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
           autoComplete="current-text" />
+
+        <DatePicker />
 
         <Button
           type="submit"
