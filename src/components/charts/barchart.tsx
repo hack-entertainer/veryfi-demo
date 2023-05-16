@@ -17,7 +17,9 @@ const BarChartComponent = ({ data }: any) => {
       <Bar dataKey="total" fill="#8884d8" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip formatter={
+        (value, name, props) => value.toFixed(2)
+      } />
     </BarChart>
   </>;
 };

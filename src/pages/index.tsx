@@ -34,7 +34,18 @@ const IndexPage = () => {
         }
       })
     },
-    onSuccess: data => console.log('THE DATA', setVeryfiData(data.data.documents)),
+    onSuccess: data => {
+      const vendorData = {};
+      data.data.documents.forEach(receipt => {
+        if (receipt.vendor.name in vendorData) {
+          vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
+        } else {
+          vendorData[receipt.vendor.name] = { total: receipt.total };
+        }
+      })
+      setVeryfiData(vendorData);
+      console.log('data fetched')
+    },
     staleTime: Infinity,
     cacheTime: Infinity
   });
