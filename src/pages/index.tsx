@@ -80,9 +80,9 @@ const IndexPage = () => {
             flexWrap: 'wrap',
           },
         }} onChange={handleTabChange}>
-          <Tab label="Bar Chart" value="1" />
+          <Tab label="Totals" value="1" />
           <Tab label="Another Chart" value="2" />
-          <Tab label="Config" value="3" />
+          <Tab label="Data" value="3" />
         </Tabs>
       </Box>
       <TabPanel value="1">
