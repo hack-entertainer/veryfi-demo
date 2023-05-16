@@ -20,14 +20,7 @@ import { useQuery } from '@tanstack/react-query'
 const IndexPage = () => {
   const vendorData = {};
 
-  // const { isLoading, error, data } = useQuery({
-  //   queryKey: ['repoData'],
-  //   queryFn: () =>
-  //     fetch('https://api.github.com/repos/tannerlinsley/react-query').then(
-  //       (res) => res.json(),
-  //     ),
-  //   onSuccess: (data) => console.log('SUCCESS now!', data)
-  // })
+  const [veryfiData, setVeryfiData] = React.useState({});
 
   const { isError, error, refetch } = useQuery({
     queryKey: ['documents'],
@@ -41,20 +34,18 @@ const IndexPage = () => {
         }
       })
     },
-    onSuccess: data => console.log('THE DATA', data.data.documents),
+    onSuccess: data => console.log('THE DATA', setVeryfiData(data.data.documents)),
     staleTime: Infinity,
     cacheTime: Infinity
   });
 
-  receipts.documents.forEach(receipt => {
-    if (receipt.vendor.name in vendorData) {
-      vendorData[receipt.vendor.name].total += receipt.total;
-    } else {
-      vendorData[receipt.vendor.name] = { total: receipt.total };
-    }
-  });
-
-  // console.log(vendorData);
+  // receipts.documents.forEach(receipt => {
+  //   if (receipt.vendor.name in vendorData) {
+  //     vendorData[receipt.vendor.name].total += receipt.total;
+  //   } else {
+  //     vendorData[receipt.vendor.name] = { total: receipt.total };
+  //   }
+  // });
 
   //for tabs
   const [tab, setTab] = React.useState('1');
@@ -78,7 +69,7 @@ const IndexPage = () => {
             </TabList>
           </Box>
           <TabPanel value="1">
-            <BarChartComponent data={vendorData} />
+            <BarChartComponent data={veryfiData} />
           </TabPanel>
           <TabPanel value="2">Another Chart</TabPanel>
           <TabPanel value="3"><Config /></TabPanel>
