@@ -9,7 +9,6 @@ import { CssBaseline } from "@mui/material";
 import { QueryClient, QueryClientProvider } from 'react-query'
 const queryClient = new QueryClient()
 
-
 export default ({ element }) => {
   return <>
     <CssBaseline />

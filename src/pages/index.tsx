@@ -26,11 +26,6 @@ import {
 const IndexPage = () => {
   const vendorData = {};
 
-
-
-  // Create a client
-  const queryClient = new QueryClient();
-
   const { isLoading, error, data } = useQuery({
     queryKey: ['repoData'],
     queryFn: () =>
