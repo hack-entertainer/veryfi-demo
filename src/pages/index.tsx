@@ -15,30 +15,36 @@ import Config from "../components/config";
 import { receipts } from '../response.js';
 
 import axios from 'axios';
-//react query
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-const queryClient = new QueryClient()
+import { useQuery } from '@tanstack/react-query'
 
 const IndexPage = () => {
   const vendorData = {};
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['repoData'],
-    queryFn: () =>
-      fetch('https://api.github.com/repos/tannerlinsley/react-query').then(
-        (res) => res.json(),
-      ),
-    onSuccess: (data) => console.log('SUCCESS now!', data)
-  })
+  // const { isLoading, error, data } = useQuery({
+  //   queryKey: ['repoData'],
+  //   queryFn: () =>
+  //     fetch('https://api.github.com/repos/tannerlinsley/react-query').then(
+  //       (res) => res.json(),
+  //     ),
+  //   onSuccess: (data) => console.log('SUCCESS now!', data)
+  // })
 
-  console.log(axios.get('http://localhost:8080/https://google.com'));
-
+  const { isError, error, refetch } = useQuery({
+    queryKey: ['documents'],
+    queryFn: () => {
+      console.log('fetching data');
+      return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
+        headers: {
+          Authorization: `apikey hack.entertainer:96c027d3756dcbb4614c47bf984c5d7a`,
+          'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
+          Accept: 'application/json'
+        }
+      })
+    },
+    onSuccess: data => console.log('THE DATA', data.data.documents),
+    staleTime: Infinity,
+    cacheTime: Infinity
+  });
 
   receipts.documents.forEach(receipt => {
     if (receipt.vendor.name in vendorData) {
@@ -48,7 +54,7 @@ const IndexPage = () => {
     }
   });
 
-  console.log(vendorData);
+  // console.log(vendorData);
 
   //for tabs
   const [tab, setTab] = React.useState('1');

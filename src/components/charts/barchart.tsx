@@ -5,7 +5,6 @@ import { BarChart, Bar, Tooltip, XAxis, YAxis } from 'recharts';
 const BarChartComponent = ({ data }: any) => {
 
   const chartData: any = [];
-  console.log('data', data);
   for (const key of Object.keys(data)) {
     chartData.push({ name: key, total: data[key].total });
   }
