@@ -15,6 +15,7 @@ import Config from "../components/config";
 import { receipts } from '../response.js';
 
 import axios from 'axios';
+//react query
 import {
   useQuery,
   useMutation,
@@ -22,6 +23,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+const queryClient = new QueryClient()
 
 const IndexPage = () => {
   const vendorData = {};
@@ -32,7 +34,7 @@ const IndexPage = () => {
       fetch('https://api.github.com/repos/tannerlinsley/react-query').then(
         (res) => res.json(),
       ),
-    onSuccess: (data) => console.log('success now!', data)
+    onSuccess: (data) => console.log('SUCCESS now!', data)
   })
 
   console.log(axios.get('http://localhost:8080/https://google.com'));
