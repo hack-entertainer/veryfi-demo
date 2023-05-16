@@ -16,13 +16,14 @@ import { receipts } from '../response.js';
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query'
+import { Tabs } from "@mui/material";
+import { useState } from "react";
 
 const IndexPage = () => {
-  const vendorData = {};
-
   const [veryfiData, setVeryfiData] = React.useState({});
 
-  const { isError, error, refetch } = useQuery({
+  // const { isError, error, refetch } = 
+  useQuery({
     queryKey: ['documents'],
     queryFn: () => {
       console.log('fetching data');
@@ -34,6 +35,7 @@ const IndexPage = () => {
         }
       })
     },
+    onError: error => console.error('error fetching data', error),
     onSuccess: data => {
       const vendorData = {};
       data.data.documents.forEach(receipt => {
@@ -59,38 +61,39 @@ const IndexPage = () => {
   // });
 
   //for tabs
-  const [tab, setTab] = React.useState('1');
+  const [tab, setTab] = useState('1');
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
   };
 
-  return (
-    <Layout>
-      <div>
-        <h1>
-          Welcome to <b>VeryFi Demo!</b>
-        </h1>
+  return <>
+  {/* <Layout> */}
 
-        <TabContext value={tab}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-              <Tab label="Bar Chart" value="1" />
-              <Tab label="Another Chart" value="2" />
-              <Tab label="Config" value="3" />
-            </TabList>
-          </Box>
-          <TabPanel value="1">
-            <BarChartComponent data={veryfiData} />
-          </TabPanel>
-          <TabPanel value="2">Another Chart</TabPanel>
-          <TabPanel value="3"><Config /></TabPanel>
-        </TabContext>
+    <h1>
+      Welcome to <b>VeryFi Demo!</b>
+    </h1>
 
+    <TabContext value={tab}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs variant="fullWidth" sx={{
+          '& .MuiTabs-flexContainer': {
+            flexWrap: 'wrap',
+          },
+        }} onChange={handleTabChange}>
+          <Tab label="Bar Chart" value="1" />
+          <Tab label="Another Chart" value="2" />
+          <Tab label="Config" value="3" />
+        </Tabs>
+      </Box>
+      <TabPanel value="1">
+        <BarChartComponent data={veryfiData} />
+      </TabPanel>
+      <TabPanel value="2">Another Chart</TabPanel>
+      <TabPanel value="3"><Config /></TabPanel>
+    </TabContext>
 
-
-      </div>
-    </Layout>
-  )
+  {/* </Layout > */}
+  </>
 }
 
 /**
