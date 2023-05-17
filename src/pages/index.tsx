@@ -65,8 +65,7 @@ const IndexPage = () => {
     setTab(newValue);
   };
 
-  return <>
-    {/* <Layout> */}
+  return <Layout>
 
     <h1>
       Welcome to <b>VeryFi Demo!</b>
@@ -91,14 +90,13 @@ const IndexPage = () => {
         </Tabs>
       </Box>
       <TabPanel value="1">
-        <BarChartComponent data={veryfiData} />
+        <BarChartComponent isFetching={isFetching} data={veryfiData} />
       </TabPanel>
       <TabPanel value="2">Another Chart</TabPanel>
       <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
     </TabContext>
 
-    {/* </Layout > */}
-  </>
+  </Layout >
 }
 
 /**
