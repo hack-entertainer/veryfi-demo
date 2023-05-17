@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { Form, Formik, useField } from 'formik';
 
 import DatePicker from "react-datepicker";
@@ -31,7 +31,10 @@ export const FormikDatePicker = <TInputDate, TDate = TInputDate>(
     <DatePicker
       {...restProps}
       value={field.value ?? null}
-      onChange={(val) => setFieldValue(name, val)}
+      onChange={(val) => {
+        setFieldValue(name, val.toISOString().substring(0,10));
+        console.log(val);
+      }}
     />
   );
 };
@@ -54,11 +57,14 @@ const Data = () => {
       clientId: config.clientId,
       userName: config.userName,
       apiKey: config.apiKey,
-      startDate: 'zoobie'
+      startDate: JSON.stringify(Date.now())
     }}
       validationSchema={validationSchema}
       // onSubmit={(values) => { dispatch(setConfig(values)) }}>
-      onSubmit={(values) => { console.log(JSON.stringify(values.startDate)) }}>
+      onSubmit={(values) => {
+        console.log(JSON.stringify(values.startDate))
+        dispatch(setConfig({ ...values, startDate: JSON.stringify(values.startDate) }))
+      }}>
 
       {({ values, touched, errors, handleChange, handleBlur, isValid, ...params }) => <Form>
         <TextField
@@ -103,15 +109,16 @@ const Data = () => {
           helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
           autoComplete="current-text" />
 
+        <Typography>Start Date</Typography>
 
         <FormikDatePicker
           name="startDate"
           id="startDate"
           renderInput={(params) => (
-            <TextField {...params} label="Start date" />
+            <TextField {...params} />
           )}
         />
-
+     
         <Button
           type="submit"
           color="primary"
