@@ -31,7 +31,6 @@ const IndexPage = () => {
     useQuery({
       queryKey: ['documents'],
       queryFn: () => {
-        console.log('fetching data', startDate);
         //this is a kludge to get around CORS (especially on gatsby cloud)
         return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
           headers: {
