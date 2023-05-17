@@ -24,7 +24,7 @@ const IndexPage = () => {
   const userName = useSelector((state: any) => state.config.userName);
   const clientId = useSelector((state: any) => state.config.clientId);
 
-  console.log('URL', process.env.veryfiURL);
+  console.log('URL', process.env.GATSBY_VERYFI_URL);
 
 
   const [rawData, setRawData] = React.useState({});
@@ -35,7 +35,7 @@ const IndexPage = () => {
       queryFn: () => {
         console.log('fetching data', startDate);
         // return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
-        return axios.get(process.env.veryfiURL || '', {
+        return axios.get(process.env.GATSBY_VERYFI_URL || '', {
           headers: {
             Authorization: authorization,
             'CLIENT-ID': clientId,
