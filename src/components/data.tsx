@@ -59,6 +59,7 @@ const Data = ({ refetch }) => {
       validationSchema={validationSchema}
       onSubmit={async values => {
         await dispatch(setConfig(values));
+        // refetch documents when updating config
         refetch();
       }}>
 

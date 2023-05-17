@@ -4,6 +4,7 @@ import * as React from 'react';
 import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const BarChartComponent = ({ isFetching, data }: any) => {
+  //making sure data is fetched
   if (!data.data || !data.data.documents || Object.keys(data).length === 0) {
     return <>
       {!isFetching && <Alert severity="warning">Fetch Data in Data Tab</Alert>}
