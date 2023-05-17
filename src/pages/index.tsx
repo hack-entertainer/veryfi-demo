@@ -23,8 +23,13 @@ import { useSelector } from "react-redux";
 const IndexPage = () => {
   const startDate = useSelector((state: any) => state.config.startDate);
   const endDate = useSelector((state: any) => state.config.endDate);
+  const apiKey = useSelector((state: any) => state.config.apiKey);
+  const userName = useSelector((state: any) => state.config.userName);
+  const clientId = useSelector((state: any) => state.config.clientId);
+
   const [veryfiData, setVeryfiData] = React.useState({});
 
+  const authorization = `apikey ${userName}:${apiKey}`;
   const { isError, error, isFetching, refetch } =
     useQuery({
       queryKey: ['documents'],
@@ -32,8 +37,8 @@ const IndexPage = () => {
         console.log('fetching data', startDate);
         return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
           headers: {
-            Authorization: `apikey hack.entertainer:96c027d3756dcbb4614c47bf984c5d7a`,
-            'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
+            Authorization: authorization,
+            'CLIENT-ID': clientId,
             Accept: 'application/json',
           },
           params: { date__gte: startDate, date__lte: endDate }
@@ -55,7 +60,6 @@ const IndexPage = () => {
         console.log('data fetched', vendorData);
       },
       staleTime: Infinity,
-      // cacheTime: Infinity
     });
 
 
@@ -76,8 +80,8 @@ const IndexPage = () => {
 
         {isFetching &&
           <Alert severity="info">Data loading. Please wait</Alert>}
-        {isError &&
-          <Alert severity="error">Error requesting data.</Alert>}
+        {isError && !isFetching &&
+          <Alert severity="error">Error requesting data. {error.message}. Make sure you have correct credentials</Alert>}
 
         <Tabs value={tab} variant="fullWidth" sx={{
           '& .MuiTabs-flexContainer': {

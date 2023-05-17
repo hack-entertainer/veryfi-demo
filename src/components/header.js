@@ -19,7 +19,7 @@ const Header = () => (<>
         fontSize: `var(--font-sm)`,
         textDecoration: `none`,
       }}>
-      <Typography>VeryFi API</Typography>
+      <Typography><b>VeryFi API</b></Typography>
     </Link>
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <Typography sx={{mr: .5}}>VeryFi Demo</Typography>
