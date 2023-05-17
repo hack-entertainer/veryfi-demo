@@ -57,10 +57,8 @@ const Data = ({ refetch }) => {
       endDate: config.endDate
     }}
       validationSchema={validationSchema}
-      // onSubmit={(values) => { dispatch(setConfig(values)) }}>
-      onSubmit={(values) => {
-        // console.log(JSON.stringify(values.startDate))
-        dispatch(setConfig(values));
+      onSubmit={async values => {
+        await dispatch(setConfig(values));
         refetch();
       }}>
 
