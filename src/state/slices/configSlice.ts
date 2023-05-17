@@ -7,6 +7,7 @@ export const configSlice = createSlice({
     userName: 'hack.entertainer',
     apiKey: '96c027d3756dcbb4614c47bf984c5d7a',
     startDate: '1900-01-01',
+    endDate: '2024-01-01',
   },
   reducers: {
     setConfig: (state, action) => {
@@ -14,6 +15,7 @@ export const configSlice = createSlice({
       state.userName = action.payload.userName;
       state.apiKey = action.payload.apiKey;
       state.startDate = action.payload.startDate;
+      state.endDate = action.payload.endDate;
     }
   },
 })

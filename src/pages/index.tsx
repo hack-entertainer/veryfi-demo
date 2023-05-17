@@ -16,17 +16,16 @@ import { receipts } from '../response.js';
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query'
-import { Tabs } from "@mui/material";
+import { Alert, Tabs } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const IndexPage = () => {
+  const startDate = useSelector((state: any) => state.config.startDate);
+  const endDate = useSelector((state: any) => state.config.endDate);
   const [veryfiData, setVeryfiData] = React.useState({});
 
-
-  const startDate = useSelector((state: any) => state.config.startDate);
-  console.log(useSelector((state: any) => state.config.startDate));
-  const { isError, error, refetch } =
+  const { isError, error, isFetching, refetch } =
     useQuery({
       queryKey: ['documents'],
       queryFn: () => {
@@ -37,9 +36,7 @@ const IndexPage = () => {
             'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
             Accept: 'application/json',
           },
-
-          params: { date__gte: startDate }
-
+          params: { date__gte: startDate, date__lte: endDate }
         })
       },
       onError: error => console.error('error fetching data', error),
@@ -61,13 +58,6 @@ const IndexPage = () => {
       // cacheTime: Infinity
     });
 
-  // receipts.documents.forEach(receipt => {
-  //   if (receipt.vendor.name in vendorData) {
-  //     vendorData[receipt.vendor.name].total += receipt.total;
-  //   } else {
-  //     vendorData[receipt.vendor.name] = { total: receipt.total };
-  //   }
-  // });
 
   //for tabs
   const [tab, setTab] = useState('1');
@@ -84,6 +74,12 @@ const IndexPage = () => {
 
     <TabContext value={tab}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+
+        {isFetching &&
+          <Alert severity="info">Data loading. Please wait</Alert>}
+        {isError &&
+          <Alert severity="error">Error requesting data.</Alert>}
+
         <Tabs value={tab} variant="fullWidth" sx={{
           '& .MuiTabs-flexContainer': {
             flexWrap: 'wrap',

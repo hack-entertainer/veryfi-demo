@@ -55,13 +55,14 @@ const Data = ({ refetch }) => {
       clientId: config.clientId,
       userName: config.userName,
       apiKey: config.apiKey,
-      startDate: config.startDate
+      startDate: config.startDate,
+      endDate: config.endDate
     }}
       validationSchema={validationSchema}
       // onSubmit={(values) => { dispatch(setConfig(values)) }}>
       onSubmit={(values) => {
         // console.log(JSON.stringify(values.startDate))
-        dispatch(setConfig({ ...values, startDate: values.startDate }));
+        dispatch(setConfig(values));
         refetch();
       }}>
 
@@ -109,10 +110,18 @@ const Data = ({ refetch }) => {
           autoComplete="current-text" />
 
         <Typography>Start Date</Typography>
-
         <FormikDatePicker
           name="startDate"
           id="startDate"
+          renderInput={(params) => (
+            <TextField {...params} />
+          )}
+        />
+
+        <Typography>End Date</Typography>
+        <FormikDatePicker
+          name="endDate"
+          id="endDate"
           renderInput={(params) => (
             <TextField {...params} />
           )}

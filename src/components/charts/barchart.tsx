@@ -1,3 +1,4 @@
+import { Alert } from '@mui/material';
 import * as React from 'react';
 
 import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
@@ -10,7 +11,7 @@ const BarChartComponent = ({ data }: any) => {
   }
   chartData.sort((a, b) => a.name.localeCompare(b.name));
 
-  if (chartData.length === 0) { return <>Loading...</> }
+  if (chartData.length === 0) { return <Alert severity="warning">Fetch Data in Data Tab</Alert> }
 
   return <>
     <ResponsiveContainer width="100%" height={500}>
