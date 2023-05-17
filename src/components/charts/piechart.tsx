@@ -1,7 +1,7 @@
 import { Alert } from '@mui/material';
 import * as React from 'react';
 
-import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer, PieChart, Pie } from 'recharts';
+import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const PieChartComponent = ({ isFetching, data }: any) => {
   //making sure data is fetched
@@ -26,6 +26,7 @@ const PieChartComponent = ({ isFetching, data }: any) => {
   }
   displayData.sort((a, b) => a.name.localeCompare(b.name));
 
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
   const data01 = [
     {
       "name": "Group A",
@@ -81,9 +82,14 @@ const PieChartComponent = ({ isFetching, data }: any) => {
 
   return <>
     <ResponsiveContainer width="100%" height={500}>
-      <PieChart width={730} height={250}>
-        <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
-        <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label />
+      <PieChart width={800} height={500}>
+        <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label >
+          {data01.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label /> */}
+        {/* <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
       </PieChart>
     </ResponsiveContainer>
   </>;
