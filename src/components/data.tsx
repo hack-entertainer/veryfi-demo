@@ -54,13 +54,13 @@ const Data = () => {
       clientId: config.clientId,
       userName: config.userName,
       apiKey: config.apiKey,
-      startDate: null
+      startDate: 'zoobie'
     }}
       validationSchema={validationSchema}
       // onSubmit={(values) => { dispatch(setConfig(values)) }}>
-      onSubmit={(values) => { console.log(values) }}>
+      onSubmit={(values) => { console.log(JSON.stringify(values.startDate)) }}>
 
-      {({ values, touched, errors, handleChange, handleBlur, isValid }) => <Form>
+      {({ values, touched, errors, handleChange, handleBlur, isValid, ...params }) => <Form>
         <TextField
           margin="normal"
           fullWidth
@@ -103,14 +103,12 @@ const Data = () => {
           helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
           autoComplete="current-text" />
 
+
         <FormikDatePicker
           name="startDate"
           id="startDate"
-          onChange={handleChange}
-          onBlur={handleBlur}
-
           renderInput={(params) => (
-            <TextField value={values.startDate} {...params} label="Start date" />
+            <TextField {...params} label="Start date" />
           )}
         />
 
