@@ -1,10 +1,9 @@
 import * as React from "react"
-import { Link } from "gatsby"
 
 import DataObjectIcon from '@mui/icons-material/DataObject';
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 
-const Header = ()=> (<>
+const Header = () => (<>
   <header
     style={{
       margin: `0 auto`,
@@ -15,17 +14,15 @@ const Header = ()=> (<>
     }}
   >
     <Link
-      to="https://www.veryfi.com/"
-      style={{
+      href="https://www.veryfi.com/"
+      sx={{
         fontSize: `var(--font-sm)`,
         textDecoration: `none`,
-      }}
-    >
-      {/* {siteTitle} */}
+      }}>
       <Typography>VeryFi API</Typography>
     </Link>
     <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <Typography>VeryFi Demo</Typography>
+      <Typography sx={{mr: .5}}>VeryFi Demo</Typography>
       <DataObjectIcon />
     </div>
   </header>
