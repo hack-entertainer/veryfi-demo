@@ -24,7 +24,8 @@ const PieChartComponent = ({ isFetching, data }: any) => {
   for (const key of Object.keys(categoryData)) {
     displayData.push({ name: key, total: categoryData[key].total, value: categoryData[key].total });
   }
-  displayData.sort((a, b) => a.name.localeCompare(b.name));
+  // displayData.sort((a, b) => a.name.localeCompare(b.name));
+  displayData.sort((a, b) => a.total - b.total);
 
 
   const COLORS = ['#55DDE0', '#F6AE2D', '#F26419', '#FFA9E7'];
