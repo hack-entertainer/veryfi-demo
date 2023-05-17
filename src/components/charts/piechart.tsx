@@ -29,6 +29,39 @@ const PieChartComponent = ({ isFetching, data }: any) => {
 
   const COLORS = ['#55DDE0', '#F6AE2D', '#F26419', '#FFA9E7'];
 
+  const label = ({
+    // active,
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    value,
+    index
+  }) => {
+    // if (!active) { return null }
+    console.log("handling label?");
+    const RADIAN = Math.PI / 180;
+    // eslint-disable-next-line
+    const radius = 25 + innerRadius + (outerRadius - innerRadius);
+    // eslint-disable-next-line
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    // eslint-disable-next-line
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="#8884d8"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {displayData[index].name} ({value})
+      </text>
+    );
+  }
+
   console.log(displayData);
   // console.log(data);
   // console.log(categoryData);
@@ -36,6 +69,8 @@ const PieChartComponent = ({ isFetching, data }: any) => {
   return <>
     <ResponsiveContainer width="100%" height={500}>
       <PieChart width={800} height={500}>
+        <Tooltip />
+
         {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label >
           {data01.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -45,42 +80,10 @@ const PieChartComponent = ({ isFetching, data }: any) => {
 
 
         {/* <Pie data={displayData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label > */}
-        <Pie data={displayData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label={({
-          active,
-          cx,
-          cy,
-          midAngle,
-          innerRadius,
-          outerRadius,
-          value,
-          index
-        }) => {
-          if (!active) { return null }
-          console.log("handling label?");
-          const RADIAN = Math.PI / 180;
-          // eslint-disable-next-line
-          const radius = 25 + innerRadius + (outerRadius - innerRadius);
-          // eslint-disable-next-line
-          const x = cx + radius * Math.cos(-midAngle * RADIAN);
-          // eslint-disable-next-line
-          const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-          return (
-            <text
-              x={x}
-              y={y}
-              fill="#8884d8"
-              textAnchor={x > cx ? "start" : "end"}
-              dominantBaseline="central"
-            >
-              {displayData[index].name} ({value})
-            </text>
-          );
-        }} >
+        <Pie data={displayData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8"  >
           {displayData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
-          <Tooltip></Tooltip>
         </Pie>
 
 
