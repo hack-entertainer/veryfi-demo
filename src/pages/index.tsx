@@ -16,6 +16,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import BarChartComponent from "../components/charts/barchart";
+import PieChartComponent from "../components/charts/piechart";
 
 const IndexPage = () => {
   const startDate = useSelector((state: any) => state.config.startDate);
@@ -74,14 +75,14 @@ const IndexPage = () => {
           },
         }} onChange={handleTabChange}>
           <Tab label="Totals" value="1" />
-          <Tab label="Another Chart" value="2" />
+          <Tab label="Categories" value="2" />
           <Tab label="Data" value="3" />
         </Tabs>
       </Box>
       <TabPanel value="1">
         <BarChartComponent isFetching={isFetching} data={rawData} />
       </TabPanel>
-      <TabPanel value="2">Another Chart</TabPanel>
+      <TabPanel value="2"><PieChartComponent isFetching={isFetching} data={rawData} /></TabPanel>
       <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
     </TabContext>
 
