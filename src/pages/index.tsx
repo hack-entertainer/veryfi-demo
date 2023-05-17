@@ -34,8 +34,8 @@ const IndexPage = () => {
       queryKey: ['documents'],
       queryFn: () => {
         console.log('fetching data', startDate);
-        // return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
-        return axios.get(process.env.GATSBY_VERYFI_URL || '', {
+        return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
+        // return axios.get(process.env.GATSBY_VERYFI_URL || '', {
           headers: {
             Authorization: authorization,
             'CLIENT-ID': clientId,
