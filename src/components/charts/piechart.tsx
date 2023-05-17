@@ -16,7 +16,7 @@ const PieChartComponent = ({ isFetching, data }: any) => {
     if (receipt.vendor.category in categoryData) {
       categoryData[receipt.vendor.category].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
     } else {
-      categoryData[receipt.vendor.category] = { total: receipt.total };
+      categoryData[receipt.vendor.category] = { total: +((Math.round(receipt.total * 100) / 100).toFixed(2)) };
     }
   })
 
