@@ -24,9 +24,6 @@ const IndexPage = () => {
   const userName = useSelector((state: any) => state.config.userName);
   const clientId = useSelector((state: any) => state.config.clientId);
 
-  console.log('URL', process.env.GATSBY_VERYFI_URL);
-
-
   const [rawData, setRawData] = React.useState({});
   const authorization = `apikey ${userName}:${apiKey}`;
   const { isError, error, isFetching, refetch } =
@@ -34,8 +31,8 @@ const IndexPage = () => {
       queryKey: ['documents'],
       queryFn: () => {
         console.log('fetching data', startDate);
+        //this is a kludge to get around CORS (especially on gatsby cloud)
         return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
-        // return axios.get(process.env.GATSBY_VERYFI_URL || '', {
           headers: {
             Authorization: authorization,
             'CLIENT-ID': clientId,
