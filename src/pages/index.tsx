@@ -18,21 +18,27 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query'
 import { Tabs } from "@mui/material";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const IndexPage = () => {
   const [veryfiData, setVeryfiData] = React.useState({});
 
-  // const { isError, error, refetch } = 
+
+  const startDate = useSelector((state: any) => state.config.startDate);
+  console.log(useSelector((state: any) => state.config.startDate));
+  const { isError, error, refetch } = 
   useQuery({
     queryKey: ['documents'],
     queryFn: () => {
-      console.log('fetching data');
+      console.log('fetching data', startDate);
       return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
         headers: {
           Authorization: `apikey hack.entertainer:96c027d3756dcbb4614c47bf984c5d7a`,
           'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
-          Accept: 'application/json'
-        }
+          Accept: 'application/json',
+        },
+        params: { created__gte: startDate }
+
       })
     },
     onError: error => console.error('error fetching data', error),
@@ -67,7 +73,7 @@ const IndexPage = () => {
   };
 
   return <>
-  {/* <Layout> */}
+    {/* <Layout> */}
 
     <h1>
       Welcome to <b>VeryFi Demo!</b>
@@ -75,7 +81,7 @@ const IndexPage = () => {
 
     <TabContext value={tab}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs variant="fullWidth" sx={{
+        <Tabs value={tab} variant="fullWidth" sx={{
           '& .MuiTabs-flexContainer': {
             flexWrap: 'wrap',
           },
@@ -89,10 +95,10 @@ const IndexPage = () => {
         <BarChartComponent data={veryfiData} />
       </TabPanel>
       <TabPanel value="2">Another Chart</TabPanel>
-      <TabPanel value="3"><Data /></TabPanel>
+      <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
     </TabContext>
 
-  {/* </Layout > */}
+    {/* </Layout > */}
   </>
 }
 

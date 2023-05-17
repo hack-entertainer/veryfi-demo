@@ -32,14 +32,12 @@ export const FormikDatePicker = <TInputDate, TDate = TInputDate>(
       {...restProps}
       value={field.value ?? null}
       onChange={(val) => {
-        setFieldValue(name, val.toISOString().substring(0,10));
+        setFieldValue(name, val.toISOString().substring(0, 10));
         console.log(val);
       }}
     />
   );
 };
-
-
 
 const validationSchema = Yup.object().shape({
   clientId: Yup.string().required('Client ID is required'),
@@ -48,7 +46,7 @@ const validationSchema = Yup.object().shape({
   startDate: Yup.date().required('Start Date is required')
 });
 
-const Data = () => {
+const Data = ({ refetch }) => {
   const config = useSelector((state: any) => state.config);
   const dispatch = useDispatch();
 
@@ -57,13 +55,15 @@ const Data = () => {
       clientId: config.clientId,
       userName: config.userName,
       apiKey: config.apiKey,
-      startDate: JSON.stringify(Date.now())
+      startDate: config.startDate
     }}
       validationSchema={validationSchema}
       // onSubmit={(values) => { dispatch(setConfig(values)) }}>
       onSubmit={(values) => {
-        console.log(JSON.stringify(values.startDate))
-        dispatch(setConfig({ ...values, startDate: JSON.stringify(values.startDate) }))
+        // console.log(JSON.stringify(values.startDate))
+        dispatch(setConfig({ ...values, startDate: JSON.stringify(values.startDate) }));
+        console.log(refetch);
+        refetch();
       }}>
 
       {({ values, touched, errors, handleChange, handleBlur, isValid, ...params }) => <Form>
@@ -118,7 +118,7 @@ const Data = () => {
             <TextField {...params} />
           )}
         />
-     
+
         <Button
           type="submit"
           color="primary"
