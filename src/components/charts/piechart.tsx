@@ -20,13 +20,21 @@ const PieChartComponent = ({ isFetching, data }: any) => {
     }
   })
 
+  // const displayData: any = [];
+  // for (const key of Object.keys(vendorData)) {
+  //   displayData.push({ name: key, total: vendorData[key].total, value: vendorData[key].total });
+  // }
+  // displayData.sort((a, b) => a.name.localeCompare(b.name));
+
+
+
   const displayData: any = [];
   for (const key of Object.keys(vendorData)) {
-    displayData.push({ name: key, total: vendorData[key].total });
+    displayData.push({ name: key, total: vendorData[key].total, value: vendorData[key].total });
   }
   displayData.sort((a, b) => a.name.localeCompare(b.name));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#55DDE0', '#F6AE2D', '#F26419', '#FFA9E7'];
   const data01 = [
     {
       "name": "Group A",
@@ -80,16 +88,33 @@ const PieChartComponent = ({ isFetching, data }: any) => {
     }
   ];
 
+  console.log(data01);
+  console.log(displayData);
+  console.log(data);
+
   return <>
     <ResponsiveContainer width="100%" height={500}>
       <PieChart width={800} height={500}>
-        <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label >
+      {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label >
           {data01.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
+          <Tooltip></Tooltip>
+        </Pie> */}
+
+
+        <Pie data={displayData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label >
+          {displayData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+          <Tooltip></Tooltip>
         </Pie>
+       
+       
         {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8" label /> */}
         {/* <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
+      
+      
       </PieChart>
     </ResponsiveContainer>
   </>;
