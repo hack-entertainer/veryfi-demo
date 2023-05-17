@@ -11,28 +11,30 @@ const PieChartComponent = ({ isFetching, data }: any) => {
     </>
   }
 
-  const vendorData = {};
+  // const vendorData = {};
+  // data.data.documents.forEach(receipt => {
+  //   if (receipt.vendor.name in vendorData) {
+  //     vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
+  //   } else {
+  //     vendorData[receipt.vendor.name] = { total: receipt.total };
+  //   }
+  // })
+
+  const categoryData = {};
   data.data.documents.forEach(receipt => {
-    if (receipt.vendor.name in vendorData) {
-      vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
+    if (receipt.vendor.category in categoryData) {
+      categoryData[receipt.vendor.category].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
     } else {
-      vendorData[receipt.vendor.name] = { total: receipt.total };
+      categoryData[receipt.vendor.category] = { total: receipt.total };
     }
   })
 
-  // const displayData: any = [];
-  // for (const key of Object.keys(vendorData)) {
-  //   displayData.push({ name: key, total: vendorData[key].total, value: vendorData[key].total });
-  // }
-  // displayData.sort((a, b) => a.name.localeCompare(b.name));
-
-
-
   const displayData: any = [];
-  for (const key of Object.keys(vendorData)) {
-    displayData.push({ name: key, total: vendorData[key].total, value: vendorData[key].total });
+  for (const key of Object.keys(categoryData)) {
+    displayData.push({ name: key, total: categoryData[key].total, value: categoryData[key].total });
   }
   displayData.sort((a, b) => a.name.localeCompare(b.name));
+
 
   const COLORS = ['#55DDE0', '#F6AE2D', '#F26419', '#FFA9E7'];
   const data01 = [
