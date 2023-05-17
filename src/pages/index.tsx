@@ -95,7 +95,7 @@ const IndexPage = () => {
         </Tabs>
       </Box>
       <TabPanel value="1">
-        <BarChartComponent isFetching={isFetching} renderedData={veryfiData} data={veryfiData} />
+        <BarChartComponent isFetching={isFetching} renderedData={veryfiData} data={rawData} />
       </TabPanel>
       <TabPanel value="2">Another Chart</TabPanel>
       <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
