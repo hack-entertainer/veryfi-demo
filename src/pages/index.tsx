@@ -45,20 +45,7 @@ const IndexPage = () => {
       },
       onError: error => console.error('error fetching data', error),
       onSuccess: async data => {
-        console.log('raw fetch', data);
         await setRawData(data);
-        
-        const vendorData = {};
-        console.log('fetched!');
-        data.data.documents.forEach(receipt => {
-          if (receipt.vendor.name in vendorData) {
-            vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
-          } else {
-            vendorData[receipt.vendor.name] = { total: receipt.total };
-          }
-        })
-        setVeryfiData(vendorData);
-        console.log('data fetched', vendorData);
       },
       staleTime: Infinity,
     });
@@ -95,7 +82,7 @@ const IndexPage = () => {
         </Tabs>
       </Box>
       <TabPanel value="1">
-        <BarChartComponent isFetching={isFetching} renderedData={veryfiData} data={rawData} />
+        <BarChartComponent isFetching={isFetching} data={rawData} />
       </TabPanel>
       <TabPanel value="2">Another Chart</TabPanel>
       <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
