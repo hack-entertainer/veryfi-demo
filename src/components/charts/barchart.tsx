@@ -3,11 +3,11 @@ import * as React from 'react';
 
 import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
-const BarChartComponent = ({ data, isFetching }: any) => {
+const BarChartComponent = ({ renderedData, isFetching }: any) => {
 
   const chartData: any = [];
-  for (const key of Object.keys(data)) {
-    chartData.push({ name: key, total: data[key].total });
+  for (const key of Object.keys(renderedData)) {
+    chartData.push({ name: key, total: renderedData[key].total });
   }
   chartData.sort((a, b) => a.name.localeCompare(b.name));
 

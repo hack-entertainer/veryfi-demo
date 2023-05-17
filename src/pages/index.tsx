@@ -26,6 +26,7 @@ const IndexPage = () => {
   const clientId = useSelector((state: any) => state.config.clientId);
 
   const [veryfiData, setVeryfiData] = React.useState({});
+  const [rawData, setRawData] = React.useState({});
 
   const authorization = `apikey ${userName}:${apiKey}`;
   const { isError, error, isFetching, refetch } =
@@ -43,8 +44,10 @@ const IndexPage = () => {
         })
       },
       onError: error => console.error('error fetching data', error),
-      onSuccess: data => {
+      onSuccess: async data => {
         console.log('raw fetch', data);
+        await setRawData(data);
+        
         const vendorData = {};
         console.log('fetched!');
         data.data.documents.forEach(receipt => {
@@ -92,7 +95,7 @@ const IndexPage = () => {
         </Tabs>
       </Box>
       <TabPanel value="1">
-        <BarChartComponent isFetching={isFetching} data={veryfiData} />
+        <BarChartComponent isFetching={isFetching} renderedData={veryfiData} data={veryfiData} />
       </TabPanel>
       <TabPanel value="2">Another Chart</TabPanel>
       <TabPanel value="3"><Data refetch={() => refetch()} /></TabPanel>
