@@ -33,7 +33,7 @@ export const FormikDatePicker = <TInputDate, TDate = TInputDate>(
       value={field.value ?? null}
       onChange={(val) => {
         setFieldValue(name, val.toISOString().substring(0, 10));
-        console.log(val);
+        console.log('newness', val.toISOString().substring(0, 10));
       }}
     />
   );
@@ -61,8 +61,7 @@ const Data = ({ refetch }) => {
       // onSubmit={(values) => { dispatch(setConfig(values)) }}>
       onSubmit={(values) => {
         // console.log(JSON.stringify(values.startDate))
-        dispatch(setConfig({ ...values, startDate: JSON.stringify(values.startDate) }));
-        console.log(refetch);
+        dispatch(setConfig({ ...values, startDate: values.startDate }));
         refetch();
       }}>
 

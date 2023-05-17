@@ -26,37 +26,40 @@ const IndexPage = () => {
 
   const startDate = useSelector((state: any) => state.config.startDate);
   console.log(useSelector((state: any) => state.config.startDate));
-  const { isError, error, refetch } = 
-  useQuery({
-    queryKey: ['documents'],
-    queryFn: () => {
-      console.log('fetching data', startDate);
-      return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
-        headers: {
-          Authorization: `apikey hack.entertainer:96c027d3756dcbb4614c47bf984c5d7a`,
-          'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
-          Accept: 'application/json',
-        },
-        params: { created__gte: startDate }
+  const { isError, error, refetch } =
+    useQuery({
+      queryKey: ['documents'],
+      queryFn: () => {
+        console.log('fetching data', startDate);
+        return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
+          headers: {
+            Authorization: `apikey hack.entertainer:96c027d3756dcbb4614c47bf984c5d7a`,
+            'CLIENT-ID': 'vrfGZkf0WuI4v61YTbsOEUinJ3YSrCEfffF1keo',
+            Accept: 'application/json',
+          },
 
-      })
-    },
-    onError: error => console.error('error fetching data', error),
-    onSuccess: data => {
-      const vendorData = {};
-      data.data.documents.forEach(receipt => {
-        if (receipt.vendor.name in vendorData) {
-          vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
-        } else {
-          vendorData[receipt.vendor.name] = { total: receipt.total };
-        }
-      })
-      setVeryfiData(vendorData);
-      console.log('data fetched')
-    },
-    staleTime: Infinity,
-    cacheTime: Infinity
-  });
+          params: { date__gte: startDate }
+
+        })
+      },
+      onError: error => console.error('error fetching data', error),
+      onSuccess: data => {
+        console.log('raw fetch', data);
+        const vendorData = {};
+        console.log('fetched!');
+        data.data.documents.forEach(receipt => {
+          if (receipt.vendor.name in vendorData) {
+            vendorData[receipt.vendor.name].total += +((Math.round(receipt.total * 100) / 100).toFixed(2));
+          } else {
+            vendorData[receipt.vendor.name] = { total: receipt.total };
+          }
+        })
+        setVeryfiData(vendorData);
+        console.log('data fetched', vendorData);
+      },
+      staleTime: Infinity,
+      // cacheTime: Infinity
+    });
 
   // receipts.documents.forEach(receipt => {
   //   if (receipt.vendor.name in vendorData) {
