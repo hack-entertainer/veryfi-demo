@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { BarChart, Bar, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
-const BarChartComponent = ({ data }: any) => {
+const BarChartComponent = ({ data, isFetching }: any) => {
 
   const chartData: any = [];
   for (const key of Object.keys(data)) {
@@ -11,7 +11,11 @@ const BarChartComponent = ({ data }: any) => {
   }
   chartData.sort((a, b) => a.name.localeCompare(b.name));
 
-  if (chartData.length === 0) { return <Alert severity="warning">Fetch Data in Data Tab</Alert> }
+  if (chartData.length === 0) {
+    return <>
+      {!isFetching && <Alert severity="warning">Fetch Data in Data Tab</Alert>}
+    </>
+  }
 
   return <>
     <ResponsiveContainer width="100%" height={500}>

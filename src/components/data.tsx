@@ -12,8 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setConfig } from '../state/slices/configSlice';
 
-
-// components/FormikDatePicker.tsx
 import { DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import { useFormikContext } from "formik";
 
@@ -128,6 +126,7 @@ const Data = ({ refetch }) => {
         />
 
         <Button
+          sx={{ mt: 2 }}
           type="submit"
           color="primary"
           variant="contained"
