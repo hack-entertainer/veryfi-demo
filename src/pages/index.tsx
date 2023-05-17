@@ -1,24 +1,22 @@
 import * as React from "react"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-
-import BarChartComponent from "../components/charts/barchart";
-
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Data from "../components/data";
-
-import { receipts } from '../response.js';
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query'
 import { Alert, Tabs } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
+import Layout from "../components/layout"
+import Seo from "../components/seo"
+
+import BarChartComponent from "../components/charts/barchart";
+
 
 const IndexPage = () => {
   const startDate = useSelector((state: any) => state.config.startDate);
