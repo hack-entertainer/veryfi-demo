@@ -17,7 +17,6 @@ import Seo from "../components/seo"
 
 import BarChartComponent from "../components/charts/barchart";
 
-
 const IndexPage = () => {
   const startDate = useSelector((state: any) => state.config.startDate);
   const endDate = useSelector((state: any) => state.config.endDate);
@@ -25,16 +24,18 @@ const IndexPage = () => {
   const userName = useSelector((state: any) => state.config.userName);
   const clientId = useSelector((state: any) => state.config.clientId);
 
-  const [veryfiData, setVeryfiData] = React.useState({});
-  const [rawData, setRawData] = React.useState({});
+  console.log('URL', process.env.veryfiURL);
 
+
+  const [rawData, setRawData] = React.useState({});
   const authorization = `apikey ${userName}:${apiKey}`;
   const { isError, error, isFetching, refetch } =
     useQuery({
       queryKey: ['documents'],
       queryFn: () => {
         console.log('fetching data', startDate);
-        return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
+        // return axios.get('http://localhost:8080/https://api.veryfi.com/api/v8/partner/documents', {
+        return axios.get(process.env.veryfiURL || '', {
           headers: {
             Authorization: authorization,
             'CLIENT-ID': clientId,
@@ -58,7 +59,6 @@ const IndexPage = () => {
   };
 
   return <Layout>
-
     <h1>
       Welcome to <b>VeryFi Demo!</b>
     </h1>
