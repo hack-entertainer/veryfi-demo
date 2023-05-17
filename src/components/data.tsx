@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Form, Formik, useField } from 'formik';
 
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
@@ -13,12 +13,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setConfig } from '../state/slices/configSlice';
 
 
+// components/FormikDatePicker.tsx
+import { DatePickerProps } from "@mui/x-date-pickers/DatePicker";
+import { useFormikContext } from "formik";
+
+type Props<TInputDate, TDate> = {
+  name: string;
+} & Omit<DatePickerProps<TInputDate, TDate>, "onChange" | "value">;
+
+export const FormikDatePicker = <TInputDate, TDate = TInputDate>(
+  props: Props<TInputDate, TDate>
+) => {
+  const { name, ...restProps } = props;
+  const [field] = useField(name);
+  const { setFieldValue } = useFormikContext();
+  return (
+    <DatePicker
+      {...restProps}
+      value={field.value ?? null}
+      onChange={(val) => setFieldValue(name, val)}
+    />
+  );
+};
+
+
+
 const validationSchema = Yup.object().shape({
   clientId: Yup.string().required('Client ID is required'),
   userName: Yup.string().required('User Name is required'),
-  apiKey: Yup.string().required('API Key is required')
+  apiKey: Yup.string().required('API Key is required'),
+  startDate: Yup.date().required('Start Date is required')
 });
-
 
 const Data = () => {
   const config = useSelector((state: any) => state.config);
@@ -28,10 +53,12 @@ const Data = () => {
     <Formik initialValues={{
       clientId: config.clientId,
       userName: config.userName,
-      apiKey: config.apiKey
+      apiKey: config.apiKey,
+      startDate: null
     }}
       validationSchema={validationSchema}
-      onSubmit={(values) => { dispatch(setConfig(values)) }}>
+      // onSubmit={(values) => { dispatch(setConfig(values)) }}>
+      onSubmit={(values) => { console.log(values) }}>
 
       {({ values, touched, errors, handleChange, handleBlur, isValid }) => <Form>
         <TextField
@@ -76,7 +103,16 @@ const Data = () => {
           helperText={touched.apiKey && errors.apiKey && `${errors.apiKey}`}
           autoComplete="current-text" />
 
-        <DatePicker />
+        <FormikDatePicker
+          name="startDate"
+          id="startDate"
+          onChange={handleChange}
+          onBlur={handleBlur}
+
+          renderInput={(params) => (
+            <TextField value={values.startDate} {...params} label="Start date" />
+          )}
+        />
 
         <Button
           type="submit"
